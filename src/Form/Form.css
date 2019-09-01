@@ -13,3 +13,7 @@ input {
 button {
   font-size: 14px;
 }
+
+#error-message {
+  margin-left: 5px;
+}

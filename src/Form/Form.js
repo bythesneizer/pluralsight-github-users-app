@@ -9,10 +9,18 @@ class Form extends Component {
 
   submitHandler = async event => {
     event.preventDefault();
-    const response = await Axios.get(
-      `https://api.github.com/users/${this.state.username}`
-    );
-    this.props.onSubmit(response.data);
+    if (this.state.username.length === 0) {
+      let error = document.getElementById("error-message");
+      error.textContent = "Please enter a username";
+      error.style.color = "red";
+      error.style.fontWeight = "bold";
+      console.log("error");
+    } else {
+      const response = await Axios.get(
+        `https://api.github.com/users/${this.state.username}`
+      );
+      this.props.onSubmit(response.data);
+    }
     this.setState({ username: "" });
   };
 
@@ -26,6 +34,7 @@ class Form extends Component {
           placeholder="Enter GitHub username"
         ></input>
         <button>Add card</button>
+        <span id="error-message"></span>
       </form>
     );
   }
