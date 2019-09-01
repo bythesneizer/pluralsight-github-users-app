@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import CardList from "./CardList/CardList.js";
+import Form from "./Form/Form.js";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+/*To do:
+-Handle Errors:
+  1. Invalid input
+  2. Network problems
+-Seperate module to handle api requests
+*/
+class App extends Component {
+  state = {
+    profiles: []
+  };
+
+  addNewProfile = profileData => {
+    console.log("App" + profileData);
+    this.setState(prevState => ({
+      profiles: [...prevState.profiles, profileData]
+    }));
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <h1>{this.props.title}</h1>
+        <Form onSubmit={this.addNewProfile} />
+        <CardList profiles={this.state.profiles} />
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -1,0 +1,15 @@
+form {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: left;
+}
+
+input {
+  font-size: 14px;
+  margin-right: 5px;
+  width: 250px;
+}
+
+button {
+  font-size: 14px;
+}
