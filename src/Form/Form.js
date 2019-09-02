@@ -1,25 +1,34 @@
 import React, { Component } from "react";
 import "./Form.css";
-import Axios from "axios";
+import API from "../Utils/Api.js";
 
 class Form extends Component {
   state = {
     username: ""
   };
 
-  submitHandler = async event => {
+  submitHandler = event => {
     event.preventDefault();
+    const error = document.getElementById("error-message");
     if (this.state.username.length === 0) {
-      let error = document.getElementById("error-message");
       error.textContent = "Please enter a username";
       error.style.color = "red";
       error.style.fontWeight = "bold";
       console.log("error");
     } else {
-      const response = await Axios.get(
-        `https://api.github.com/users/${this.state.username}`
-      );
-      this.props.onSubmit(response.data);
+      const getResponse = async () => {
+        try {
+          const response = await API.get(`/${this.state.username}`);
+          console.log(response.data);
+          return response.data;
+        } catch (error) {
+          console.log("Unable to call GitHub API: " + error);
+        }
+      };
+      getResponse().then(data => {
+        this.props.onSubmit(data);
+      });
+      error.textContent = "";
     }
     this.setState({ username: "" });
   };

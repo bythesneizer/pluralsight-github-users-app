@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import CardList from "./CardList/CardList.js";
 import Form from "./Form/Form.js";
+import ErrorBoundary from "./Utils/ErrorBoundary.js";
 
 /*To do:
 -Handle Errors:
@@ -25,8 +26,12 @@ class App extends Component {
     return (
       <div className="App">
         <h1>{this.props.title}</h1>
-        <Form onSubmit={this.addNewProfile} />
-        <CardList profiles={this.state.profiles} />
+        <ErrorBoundary>
+          <Form onSubmit={this.addNewProfile} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <CardList profiles={this.state.profiles} />
+        </ErrorBoundary>
       </div>
     );
   }
